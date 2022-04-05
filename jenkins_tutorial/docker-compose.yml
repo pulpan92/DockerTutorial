@@ -1,12 +1,12 @@
 version: '3'
 services:
-  app:
-    build: .
-    image: ${DOCKER_USER_ID}/flask
-  production:
-          image: ${DOCKER_USER_ID}/flask:01
-    volumes:
-      - .:/code
-    command: python app.py
-    ports:
-      - "80:80"
+        app:
+                build: .
+                image: pulpan92/flask
+        production:
+                image: pulpan92/flask:01
+                volumes:
+                        - .:/code
+                command: python app.py
+                ports:
+                        - "80:80"
