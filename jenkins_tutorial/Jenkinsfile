@@ -8,6 +8,8 @@ node {
             git 'https://github.com/pulpan92/DockerTutorial.git'
        }
        stage('Unit Test') {
+            print 'user=' + DOCKER_USER_ID
+	    print 'pass=' + DOCKER_USER_PASSWORD
        }
        dir('jenkins_tutorial'){
          stage('Build') {
