@@ -4,7 +4,7 @@ services:
                 build: .
                 image: pulpan92/flask
         production:
-                image: pulpan92/flask:01
+                image: pulpan92/flask:1
                 volumes:
                         - .:/code
                 command: python app.py
