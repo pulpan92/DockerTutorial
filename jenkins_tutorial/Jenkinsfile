@@ -9,20 +9,22 @@ node {
        }
        stage('Unit Test') {
        }
-       stage('Build') {
-            sh(script: 'docker-compose build app')
+       dir('jenkins_tutorial'){
+         stage('Build') {
+              sh(script: 'docker-compose build app')
+         }
+         stage('Tag') {
+              sh(script: '''docker tag ${DOCKER_USER_ID}/flask \
+              ${DOCKER_USER_ID}/flask:${BUILD_NUMBER}''')
+         }
+         stage('Push') {
+              sh(script: 'docker login -u ${DOCKER_USER_ID} -p ${DOCKER_USER_PASSWORD}')
+              sh(script: 'docker push ${DOCKER_USER_ID}/flask:${BUILD_NUMBER}')
+              sh(script: 'docker push ${DOCKER_USER_ID}/flask:latest')
+         }
+         stage('Deploy') {
+            sh(script: 'docker-compose up -d production')
+         }
        }
-       stage('Tag') {
-            sh(script: '''docker tag ${DOCKER_USER_ID}/flask \
-            ${DOCKER_USER_ID}/flask:${BUILD_NUMBER}''')
-       }
-       stage('Push') {
-            sh(script: 'docker login -u ${DOCKER_USER_ID} -p ${DOCKER_USER_PASSWORD}')
-            sh(script: 'docker push ${DOCKER_USER_ID}/flask:${BUILD_NUMBER}')
-            sh(script: 'docker push ${DOCKER_USER_ID}/flask:latest')
-       }
-       stage('Deploy') {
-          sh(script: 'docker-compose up -d production')
-       }
-     }
+    }
 }
