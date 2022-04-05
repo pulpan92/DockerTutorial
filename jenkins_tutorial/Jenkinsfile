@@ -10,6 +10,7 @@ node {
        stage('Unit Test') {
             print 'user=' + DOCKER_USER_ID
 	    print 'pass=' + DOCKER_USER_PASSWORD
+	    print 'build=' + BUILD_NUMBER
        }
        dir('jenkins_tutorial'){
          stage('Build') {
